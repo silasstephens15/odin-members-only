@@ -3,24 +3,64 @@
   <%-include("./partials/head.ejs")%>
   <body>
     <h1>Sign-Up</h1>
-    <form action="POST">
+    <form action="/sign-up" method="POST">
       <label for="username">Username: </label>
-      <input type="text" name="username" id="username" required />
+      <input
+        type="text"
+        name="username"
+        id="username"
+        required
+        oninput="this.setCustomValidity('')"
+      />
       <label for="password">Password: </label>
-      <input type="password" name="password" id="password" required />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        required
+        oninput="this.setCustomValidity('')"
+      />
       <label for="full-name">First and Last Name: </label>
-      <input type="text" name="full-name" id="full-name" />
+      <input
+        type="text"
+        name="full-name"
+        id="full-name"
+        oninput="this.setCustomValidity('')"
+      />
       <label for="member">Full Member: </label>
-      <input type="checkbox" name="member" id="member" />
+      <input
+        type="checkbox"
+        name="member"
+        id="member"
+        oninput="this.setCustomValidity('')"
+      />
       <div class="hidden" style="display: none">
         <label for="member-password">Membership Password: </label>
-        <input type="password" name="member-password" id="member-password" />
+        <input
+          type="password"
+          name="member-password"
+          id="member-password"
+          oninput="this.setCustomValidity('')"
+        />
       </div>
       <button type="submit">Submit</button>
     </form>
     <script>
       const body = document.querySelector("body");
       const hidden = document.querySelector(".hidden");
+      const errors = <%-JSON.stringify(errors)%>;
+      const values = <%-JSON.stringify(values)%>;
+
+      Object.keys(values).map((value)=>{
+        const item = document.querySelector("#"+value);
+        item.value = values[value];
+      })
+
+      Object.keys(errors).map((error)=>{
+        const item = document.querySelector("#"+error);
+        item.setCustomValidity(errors[error]);
+        item.reportValidity();
+      })
 
       body.addEventListener("click", (e) => {
         if (e.target.id === "member" && e.target.checked) {
