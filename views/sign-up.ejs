@@ -28,12 +28,7 @@
         oninput="this.setCustomValidity('')"
       />
       <label for="member">Full Member: </label>
-      <input
-        type="checkbox"
-        name="member"
-        id="member"
-        oninput="this.setCustomValidity('')"
-      />
+      <input type="checkbox" name="member" id="member" value="true" />
       <div class="hidden" style="display: none">
         <label for="member-password">Membership Password: </label>
         <input
@@ -54,6 +49,10 @@
       Object.keys(values).map((value)=>{
         const item = document.querySelector("#"+value);
         item.value = values[value];
+        if(value == 'member'){
+          item.checked = true;
+          hidden.style.display = 'block';
+        }
       })
 
       Object.keys(errors).map((error)=>{
