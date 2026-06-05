@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include("./partials/head.ejs")%>
+  <body>
+    <h1>Sign-In</h1>
+    <form action="/sign-in" method="POST">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        required
+        oninput="this.setCustomValidity('')"
+        maxlength="255"
+      />
+      <label for="password">Password</label>
+      <input
+        type="text"
+        name="password"
+        id="password"
+        required
+        oninput="this.setCustomValidity('')"
+        maxlength="255"
+      />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      const body = document.querySelector("body");
+      const errors = <%-JSON.stringify(errors)%>;
+      const values = <%-JSON.stringify(values)%>;
+
+      Object.keys(values).map((value)=>{
+        const item = document.querySelector("#"+value);
+        item.value = values[value];
+      })
+
+      Object.keys(errors).map((error)=>{
+        const item = document.querySelector("#"+error);
+        item.setCustomValidity(errors[error]);
+        item.reportValidity();
+      })
+    </script>
+  </body>
+</html>
