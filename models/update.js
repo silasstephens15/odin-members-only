@@ -15,4 +15,17 @@ async function addUser(username, name, password, member, admin) {
   }
 }
 
-module.exports = { addUser };
+async function addMessage(message, username, title) {
+  try {
+    await pool.query(
+      `INSERT INTO messages
+      (message, user_id, time, title) VALUES
+      ($1, (SELECT id FROM members WHERE username = $2), NOW(), $3);`,
+      [message, username, title],
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports = { addUser, addMessage };

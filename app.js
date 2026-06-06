@@ -6,6 +6,7 @@ const { signUpRouter } = require("./routes/sign-up");
 const { signInRouter } = require("./routes/sign-in");
 const { pool } = require("./models/pool");
 const passport = require("passport");
+const { messageRouter } = require("./routes/message");
 require("./config/passport");
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(passport.session());
 app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/sign-in", signInRouter);
+app.use("/message", messageRouter);
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
     if (err) {
