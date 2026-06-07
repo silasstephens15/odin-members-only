@@ -23,11 +23,14 @@
     <%messages.map((message)=>{%>
         <div class="message">
           <h3><%=message.title%></h3>
-          <%if (locals.user){%>
+          <%if (locals.user && locals.user.member){%>
             <p>Author: <%=message.first_name%> <%=message.last_name%></p>
             <p>At: <%=message.time%></p>
           <%}%>
           <p><%=message.message%></p>
+          <%if (locals.user && locals.user.admin){%>
+            <button type="button">Delete</button>
+          <%}%>
         </div>
       <%});%>
   </body>

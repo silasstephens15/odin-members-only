@@ -27,6 +27,7 @@
         id="full-name"
         oninput="this.setCustomValidity('')"
       />
+      <%if (!showAdmin){%>
       <label for="member">Full Member: </label>
       <input type="checkbox" name="member" id="member" value="true" />
       <div class="hidden" style="display: none">
@@ -38,6 +39,18 @@
           oninput="this.setCustomValidity('')"
         />
       </div>
+      <%}%>
+      <% if (showAdmin){%>
+        <div>
+          <label for="admin-password">Admin Password</label>
+          <input 
+          type="text" 
+          name="admin-password" 
+          id="admin password" 
+          required 
+          oninput="this.setCustomValidity('')">
+        </div>
+      <%}%>
       <button type="submit">Submit</button>
     </form>
     <script>

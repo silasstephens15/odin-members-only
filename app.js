@@ -31,6 +31,14 @@ app.use("/", indexRouter);
 app.use("/sign-up", signUpRouter);
 app.use("/sign-in", signInRouter);
 app.use("/message", messageRouter);
+app.use(
+  "/admin",
+  (req, res, next) => {
+    res.locals["showAdmin"] = true;
+    next();
+  },
+  signUpRouter,
+);
 app.get("/log-out", (req, res, next) => {
   req.logout((err) => {
     if (err) {
