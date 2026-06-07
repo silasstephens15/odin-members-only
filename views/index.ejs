@@ -22,16 +22,31 @@
     <%}%>
     <%messages.map((message)=>{%>
         <div class="message">
-          <h3><%=message.title%></h3>
+          <h3 class="title"><%=message.title%></h3>
           <%if (locals.user && locals.user.member){%>
             <p>Author: <%=message.first_name%> <%=message.last_name%></p>
-            <p>At: <%=message.time%></p>
+            <p class="time" id="<%=new Date(message.time).toISOString()%>">At: <%=message.time%></p>
           <%}%>
           <p><%=message.message%></p>
           <%if (locals.user && locals.user.admin){%>
-            <button type="button">Delete</button>
+            <button class="delete" type="button">Delete</button>
           <%}%>
         </div>
       <%});%>
+      <%if (locals.user && locals.user.admin){%>
+      <script>
+        const body = document.querySelector('body');
+        body.addEventListener('click', (e)=>{
+          if (e.target.classList.contains("delete")){
+            const title = e.target.parentElement.querySelector(".title").textContent;
+            const time = e.target.parentElement.querySelector(".time").id.replaceAll(':', "%3a");
+            const endpoint = `/${time}&${title}`;
+            fetch(endpoint, {method: "DELETE"})
+            .then((res)=>{res.json().then((data)=>{window.location.href = data.redirect;})})
+            .catch((err)=>{console.log(err)})
+          }
+        })
+      </script>
+      <%}%>
   </body>
 </html>
