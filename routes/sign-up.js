@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { addUser } = require("../models/update");
+const { pool } = require("../models/pool");
 
 const signUpRouter = Router();
 
@@ -58,7 +59,17 @@ signUpRouter.post("/", (req, res) => {
       req.body.member,
       req.body.admin,
     ).then(() => {
-      res.redirect("/");
+      pool
+        .query("SELECT * FROM members WHERE username = $1;", [
+          req.body.username,
+        ])
+        .then(({ rows }) => {
+          const user = rows[0];
+          req.login(user, () => {
+            res.redirect("/");
+          });
+        })
+        .catch((err) => console.log(err));
     });
   } else {
     let admin = false;
