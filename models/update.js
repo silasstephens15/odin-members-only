@@ -29,7 +29,6 @@ async function addMessage(message, username, title) {
 }
 
 async function deleteMessage(title, time) {
-  console.log(title, time);
   try {
     await pool.query(
       `DELETE FROM messages WHERE title = $1 AND date_trunc('milliseconds', time) = date_trunc('milliseconds', $2::timestamptz);`,

@@ -7,6 +7,8 @@ const { signInRouter } = require("./routes/sign-in");
 const { pool } = require("./models/pool");
 const passport = require("passport");
 const { messageRouter } = require("./routes/message");
+const { error } = require("node:console");
+const NotFoundError = require("./errors/notFoundError");
 require("./config/passport");
 
 const app = express();
@@ -45,6 +47,17 @@ app.get("/log-out", (req, res, next) => {
       return next(err);
     }
     res.redirect("/");
+  });
+});
+app.use((req, res, next) => {
+  throw new NotFoundError("Page not found.");
+  next(err);
+});
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).render("error", {
+    title: "error",
+    status: error.status || 500,
+    message: error.message,
   });
 });
 

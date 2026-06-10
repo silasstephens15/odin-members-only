@@ -3,9 +3,9 @@ const { addMessage } = require("../models/update");
 
 const messageRouter = Router();
 
-messageRouter.post("/", (req, res) => {
+messageRouter.post("/", async (req, res) => {
   if (req.isAuthenticated()) {
-    addMessage(req.body.message, req.user.username, req.body.title);
+    await addMessage(req.body.message, req.user.username, req.body.title);
     res.redirect("/");
   } else {
     res.redirect("/sign-in");
