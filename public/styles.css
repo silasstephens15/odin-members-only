@@ -1,0 +1,37 @@
+.message-container {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  padding: 8px;
+}
+
+.message {
+  padding: 12px;
+  border: black 1px solid;
+  border-radius: 6px;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 16px;
+  border: black 1px solid;
+  border-radius: 6px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+li {
+  padding: 4px;
+}

@@ -12,9 +12,11 @@ const NotFoundError = require("./errors/notFoundError");
 require("./config/passport");
 
 const app = express();
+const assetsPath = path.join(__dirname, "public");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
