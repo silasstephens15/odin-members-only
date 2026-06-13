@@ -13,3 +13,6 @@ CONNECTION_STRING=#if DEV is false this will be used instead of local database
 MEMBER_PASSWORD=#set to anything you please
 ADMIN_PASSWORD=#set to anything you please
 SECRET=#for express sessions
+
+You can access the deployment here:
+https://odin-members-only-ub5r.onrender.com
